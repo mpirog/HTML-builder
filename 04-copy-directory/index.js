@@ -43,7 +43,19 @@ const readDirectory = (currentPath) => {
   });
 };
 
-//------------------------
-makeDir(copyPath);
+const runProcessCopy = () => {
+  makeDir(copyPath);
+  readDirectory(sourcePath);
+};
 
-readDirectory(sourcePath);
+//------------------------
+fs.stat(copyPath, (err) => {
+  if (err) {
+    runProcessCopy();
+  } else {
+    fs.rm(copyPath, { recursive: true }, (err) => {
+      errorCallback(err);
+      runProcessCopy();
+    });
+  }
+});
