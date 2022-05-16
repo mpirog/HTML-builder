@@ -13,6 +13,7 @@ const readData = (filePath) => {
   fs.createReadStream(path.resolve(__dirname, filePath))
     .on('data', (chunk) => {
       writeStream.write(chunk.toString());
+      writeStream.write('\n');
     });
 };
 
