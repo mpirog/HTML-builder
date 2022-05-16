@@ -25,8 +25,10 @@ const readStyles = async (currentPath) => {
     if (stat.isDirectory()) {
       data = data.concat(await readStyles(filePath));
     } else {
-      const dt = await fs.readFile(path.resolve(__dirname, filePath));
-      data.push(dt.toString());
+      if (path.extname(filePath) === '.css') {
+        const dt = await fs.readFile(path.resolve(__dirname, filePath));
+        data.push(dt.toString());
+      }
     }
   }
 
@@ -54,7 +56,7 @@ const copyFiles = async (currentPath) => {
 
 const mergeStyles = async () => {
   const data = await readStyles('./styles');
-  await fs.writeFile(path.resolve(__dirname, './project-dist/style.css'), data.join('\n'));
+  await fs.writeFile(path.resolve(__dirname, './project-dist/style.css'), data.join('\n\n'));
 };
 
 const replaceHtmlTemplates = async () => {
