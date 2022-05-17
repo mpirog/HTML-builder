@@ -9,9 +9,7 @@ const getStatistics = (currentPath, fPath) => {
 
   fs.stat(currentPath, (err, stats) => {
     if (!err) {
-      if (stats.isDirectory()) {
-        readDirectory(currentPath);
-      } else {
+      if (!stats.isDirectory()) {
         const ext = path.extname(currentPath);
         stdout.write(`${path.basename(currentPath, ext)} - ${ext.substring(1)} - ${stats.size / 1024} kb\n`);
       }
