@@ -77,11 +77,11 @@ const replaceHtmlTemplates = async () => {
 
 const removeDirectory = async (dirPath) => {
   try {
-    await fs.rm(dirPath, { recursive: true })
+    await fs.rm(dirPath, { recursive: true });
   } catch {
     return;
   }
-}
+};
 
 const runProcess = async () => {
   const distPath = path.resolve(__dirname, './project-dist');
@@ -94,7 +94,7 @@ const runProcess = async () => {
   mergeStyles();
 
   copyFiles(sourcePath);
-}
+};
 
 //------------------------
 

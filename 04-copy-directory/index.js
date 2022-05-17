@@ -12,7 +12,7 @@ const errorCallback = (err) => {
 
 const makeDir = (dirPath) => {
   fs.mkdir(dirPath, { recursive: true }, errorCallback);
-}
+};
 
 const copyNewFile = (currentPath, fPath) => {
   currentPath = path.resolve(__dirname, `${currentPath}/${fPath}`);
