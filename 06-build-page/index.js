@@ -71,16 +71,31 @@ const replaceHtmlTemplates = async () => {
 
     data = data.replace(`{{${words[i]}}}`, tmp.toString());
   }
-
-  await makeDir(path.resolve(__dirname, './project-dist'));
   
   fs.writeFile(path.resolve(__dirname, './project-dist/index.html'), data);
 };
 
+const removeDirectory = async (dirPath) => {
+  try {
+    await fs.rm(dirPath, { recursive: true })
+  } catch {
+    return;
+  }
+}
+
+const runProcess = async () => {
+  const distPath = path.resolve(__dirname, './project-dist');
+
+  await removeDirectory(distPath);
+  await makeDir(distPath);
+  
+  replaceHtmlTemplates();
+
+  mergeStyles();
+
+  copyFiles(sourcePath);
+}
+
 //------------------------
 
-replaceHtmlTemplates();
-
-mergeStyles();
-
-copyFiles(sourcePath);
+runProcess();
